@@ -5,11 +5,12 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { loadConfig } from './config/configurations';
+import { AuthModule } from './auth/auth.module';
 
 const businessModules = [
-  UserModule
+  UserModule,
+  AuthModule
 ]
-
 const libModules=[
   ConfigModule.forRoot({
     load: [loadConfig],
