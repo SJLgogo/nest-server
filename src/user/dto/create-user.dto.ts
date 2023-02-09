@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, PartialType } from "@nestjs/swagger";
 import { IsAlphanumeric, IsEmail, IsNumber, IsNumberString, IsString } from "class-validator";
 
 export class CreateUserDto{
@@ -19,3 +19,5 @@ export class CreateUserDto{
     @IsNumber()
     is_admin:number
 }
+
+export class UpdateUserDto extends PartialType(CreateUserDto) {}
