@@ -12,6 +12,19 @@ export class AuthService {
       ) {}
 
 
+    async validateUser(
+        username: string,
+        password: string,
+      ): Promise<null | Omit<User, 'password'>> {
+        const existUser = await this.userService.findByUsername(username);
+        if (!existUser) {
+          return null;
+        }
+        const { password: ignorePass, ...restUser } = existUser;
+        return restUser;
+      }
+    
+
     async login(user: User) {
         const { password, ...restUser } = user;
         const payload = { ...restUser, sub: user.id };

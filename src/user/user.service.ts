@@ -30,6 +30,12 @@ export class UserService{
         return this.userRepository.findOne({where:{id}});
     }
 
+    async findByUsername(username: string) {
+        return this.userRepository.findOne({
+          where: { username },
+        });
+      }
+
     async update(id: number, updateUserDto: UpdateUserDto) {
         return this.userRepository.update({ id }, updateUserDto);
     }
