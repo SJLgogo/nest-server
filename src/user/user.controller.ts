@@ -1,5 +1,10 @@
 import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseInterceptors } from "@nestjs/common";
+import { UseGuards } from "@nestjs/common/decorators/core/use-guards.decorator";
 import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { JwtAuthGuard } from "src/auth/guard/jwt-auth.guard";
+import { LocalAuthGuard } from "src/auth/guard/loacl-auth.guard";
+import { RolesGuard } from "src/auth/guard/role.guard";
+import { Roles } from "src/common/decorator/roles.decorator";
 import { CreateUserDto, UpdateUserDto } from "./dto/create-user.dto";
 import { User } from "./entities/user.entity";
 import { UserService } from "./user.service";
@@ -18,6 +23,8 @@ export class UserController{
 
     @ApiResponse({ type: [User] })
     @UseInterceptors(ClassSerializerInterceptor)
+    @Roles('admin')
+    @UseGuards(JwtAuthGuard,RolesGuard)
     @Get()
     async findAll() {
       return this.userService.findAll();

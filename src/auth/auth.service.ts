@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
@@ -18,7 +18,10 @@ export class AuthService {
       ): Promise<null | Omit<User, 'password'>> {
         const existUser = await this.userService.findByUsername(username);
         if (!existUser) {
-          return null;
+          throw new HttpException('用户不存在',200)
+        }
+        if(existUser.password != password){
+          throw new HttpException('密码不正确',200)
         }
         const { password: ignorePass, ...restUser } = existUser;
         return restUser;

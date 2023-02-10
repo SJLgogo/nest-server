@@ -22,4 +22,7 @@ export class User{
     @ApiProperty({ description: '是否为管理员' })
     @Column('int', { default: 1 })
     is_admin?: number;
+
+    @ApiProperty({ description: '角色' })
+    roles?: string[];
 }
