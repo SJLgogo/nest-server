@@ -1,5 +1,5 @@
 import { ApiProperty, PartialType } from "@nestjs/swagger";
-import { IsAlphanumeric, IsEmail, IsNumber, IsNumberString, IsString } from "class-validator";
+import { IsAlphanumeric, IsEmail, IsNumber, IsNumberString, IsOptional, IsString } from "class-validator";
 
 export class CreateUserDto{
 
@@ -12,12 +12,14 @@ export class CreateUserDto{
     password: string;
   
     @ApiProperty({ required: false, description: '邮箱' })
+    @IsOptional()
     @IsEmail()
-    email: string;
+    email?: string;
 
     @ApiProperty({ required: false, description: '是否管理员' })
     @IsNumber()
     is_admin:number
 }
 
-export class UpdateUserDto extends PartialType(CreateUserDto) {}
+export class UpdateUserDto extends PartialType(CreateUserDto) {
+}

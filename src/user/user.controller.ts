@@ -23,8 +23,8 @@ export class UserController{
 
     @ApiResponse({ type: [User] })
     @UseInterceptors(ClassSerializerInterceptor)
-    @Roles('admin')
-    @UseGuards(JwtAuthGuard,RolesGuard)
+    // @Roles('admin')
+    // @UseGuards(JwtAuthGuard,RolesGuard)
     @Get()
     async findAll() {
       return this.userService.findAll();
@@ -51,5 +51,12 @@ export class UserController{
     async remove(@Param('id', ParseIntPipe) id: string) {
       return this.userService.remove(+id);
     }
+
+    @Post('pageAll')
+    async pageAll(@Body() post:any):Promise<any>{
+      
+    }
+
+
 
 }

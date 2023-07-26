@@ -6,10 +6,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { loadConfig } from './config/configurations';
 import { AuthModule } from './auth/auth.module';
+import { MonitorModule } from './monitor/monitor.module';
 
 const businessModules = [
   UserModule,
-  AuthModule
+  AuthModule,
+  MonitorModule
 ]
 const libModules=[
   ConfigModule.forRoot({
