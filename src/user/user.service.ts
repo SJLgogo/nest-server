@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
@@ -23,7 +23,8 @@ export class UserService{
     }
 
     async findAll(){
-        return this.userRepository.find();
+      throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+      return this.userRepository.find();
     }
 
     async findOne(id:number){
@@ -36,8 +37,13 @@ export class UserService{
         });
       }
 
-    async update(id: number, updateUserDto: UpdateUserDto) {
-        return this.userRepository.update({ id }, updateUserDto);
+    async update(id: any, updateUserDto: UpdateUserDto) {
+      try {
+        this.userRepository.update({ id }, updateUserDto);
+        return '修改成功'
+      } catch (error) {
+        return error
+      }
     }
 
     async remove(id: number) {
