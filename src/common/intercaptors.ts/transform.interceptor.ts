@@ -6,7 +6,6 @@ import { Observable, map } from "rxjs";
 export class TransformInterceptor implements NestInterceptor { 
     intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
         return next.handle().pipe(map(data=>{
-            console.log(data);
             return {
                 data:data,
                 code:200,
