@@ -11,6 +11,6 @@ export const loadConfig = () => {
         redis: {
             host: env.REDIS_HOST,
             port: env.REDIS_PORT,
-          },
+        },
     }
 }
