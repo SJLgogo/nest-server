@@ -48,5 +48,10 @@ export class MonitorDataDto {
     @IsString()
     name: string;
 
+    // 接口异常错误码
+    @IsOptional()
+    @IsNumber()
+    status:number;
+
 
 }

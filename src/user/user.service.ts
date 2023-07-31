@@ -14,16 +14,20 @@ export class UserService{
     }
 
     async create(createUserDto:User):Promise<any>{
+      try {
         const { username} = createUserDto;
         const doc = await this.userRepository.findOne({ where:{ username } })
         if(doc){
             throw new HttpException('人员已存在',200)
         }
         return this.userRepository.save(createUserDto);
+      } catch (error) {
+        throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+      }
     }
 
     async findAll(){
-      throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+      // throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
       return this.userRepository.find();
     }
 

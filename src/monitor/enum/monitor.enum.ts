@@ -1,5 +1,6 @@
 
 export enum EVENTTYPES{
     ERROR = 'error',
-    RESOURCE = 'resource'
+    RESOURCE = 'resource',
+    XHR = 'xhr'
 }

@@ -10,6 +10,8 @@ import { MonitorModule } from './monitor/monitor.module';
 import { BullModule } from '@nestjs/bull';
 import { RedisService } from './redis/redis.service';
 import { ScheduleModule } from '@nestjs/schedule';
+import { HttpExceptionFilter } from './common/exception/httpException';
+import { APP_FILTER } from '@nestjs/core';
 
 const businessModules = [
   UserModule,
@@ -60,11 +62,18 @@ const redisModule = [
   ScheduleModule.forRoot()  // 整个应用程序中使用定时任务功能
 ]
 
+const exceptions =[
+  {
+    provide: APP_FILTER,
+    useClass: HttpExceptionFilter,
+  },
+]
+
 @Module({
   imports: [
     ...businessModules , ...libModules , ...redisModule
   ],
   controllers: [AppController],
-  providers: [AppService , RedisService ],
+  providers: [AppService , RedisService , ...exceptions ],
 })
 export class AppModule {}

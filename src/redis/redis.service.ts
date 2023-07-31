@@ -34,7 +34,6 @@ export class RedisService{
 
     async addToCache(data:any):Promise<void>{
         await this.redisClient.rpush(this.listKey , JSON.stringify(data))
-        console.log(await this.getRedisListNameLength(this.listKey));
     }
 
     /** 获取redis存储数据长度 */
@@ -45,7 +44,6 @@ export class RedisService{
     /** 取出redis数据 */
     async getRedisData(listKey:string = this.listKey):Promise<any>{
         const beginListLengtgh =  await this.redisClient.llen(listKey)
-        console.log(`beginListLengtgh数量 : ${beginListLengtgh}`);
         if(beginListLengtgh<=0) return
         const start = this.handleRedisCount > beginListLengtgh ? 0 : beginListLengtgh - this.handleRedisCount
         console.log(`开始处理缓存数据 : start:${start} , end:${beginListLengtgh}`);

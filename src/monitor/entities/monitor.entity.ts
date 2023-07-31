@@ -32,6 +32,11 @@ export class Monitor{
     })
     type: EVENTTYPES;
 
+
+    @ApiProperty({ description: '接口异常错误码' })
+    @Column({ nullable: true })
+    status: number;
+
     @ApiProperty({ description: '源码filename地址' })
     @Column({ nullable: true })
     url: string;
